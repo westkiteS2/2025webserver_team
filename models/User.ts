@@ -1,13 +1,23 @@
-import mongoose, { Schema, models, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
-const UserSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    supabaseId: { type: String },
+const UserSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
   },
-  { timestamps: true }
-);
+  password: {
+    type: String, // 그대로 저장
+    required: true,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-export const User = models.User || model("User", UserSchema);
+export default models.User || model("User", UserSchema);
