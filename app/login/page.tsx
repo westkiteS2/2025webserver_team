@@ -53,14 +53,19 @@ export default function LoginPage() {
       // ✅ 로그인 성공 → localStorage에 사용자 정보 저장
       try {
         if (typeof window !== 'undefined') {
+          localStorage.setItem('isLoggedIn', 'true') // ✅ 이 줄 추가
           localStorage.setItem('userEmail', email)
-          // 간단히 이메일 앞부분을 닉네임처럼 사용
+
           const nameFromEmail = email.split('@')[0] || email
           localStorage.setItem('userName', nameFromEmail)
         }
       } catch (e) {
         console.error('Failed to save login info to localStorage', e)
       }
+
+      // ✅ 로그인 상태 변경 알림
+      window.dispatchEvent(new Event('auth-change'))
+
 
       // 기존 동작 유지: 홈으로 이동
       router.push('/')
