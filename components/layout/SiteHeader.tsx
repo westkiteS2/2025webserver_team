@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react' // useEffect 추가
 import { Menu, Search, User, LogOut } from 'lucide-react'
 
 export default function SiteHeader() {
@@ -10,6 +10,13 @@ export default function SiteHeader() {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false) // 로그인 상태
   const router = useRouter()
+
+  // 컴포넌트 로드 시 local Storate에서 상태 읽어오기
+  useEffect(() => {
+    if (localStorage.getItem('loggedIn') === 'true') {
+      setIsLoggedIn(true)
+    }
+  }, [])
 
   const handleProtectedAction = (path?: string) => {
     if (isLoggedIn) {
@@ -19,13 +26,17 @@ export default function SiteHeader() {
     }
   }
 
+  /** Mock 함수 제거
   const handleLogin = () => {
     setIsLoggedIn(true)
     setShowLoginPrompt(false)
   }
+    */
 
+  // 로그아웃 시 local Storage 상태 제거
   const handleLogout = () => {
     setIsLoggedIn(false)
+    localStorage.removeItem('loggedIn') // ✅ 추가: 저장된 로그인 상태 삭제
     router.push('/')
   }
 
@@ -83,7 +94,7 @@ export default function SiteHeader() {
             {/* 로그인 / 프로필 / 로그아웃 버튼 */}
             {!isLoggedIn ? (
               <button
-                onClick={() => setShowLoginPrompt(true)}
+                onClick={() => router.push('/login')}
                 className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
                 <User className="w-4 h-4" />
@@ -161,7 +172,7 @@ export default function SiteHeader() {
               </button>
 
               <button
-                onClick={handleLogin}
+                onClick={() => router.push('/login')}
                 className="px-4 py-2 rounded-lg bg-blue-600 text-white"
               >
                 로그인하기

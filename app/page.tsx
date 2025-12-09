@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { books } from '@/lib/data/books'
 import { reviews } from '@/lib/data/reviews'
@@ -13,9 +13,14 @@ export default function HomePage() {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
 
   // ✅ 임시 로그인 상태 (나중에 실제 인증 로직으로 교체)
-  const isLoggedIn = false
-  // const { user } = useUser()
-  // const isLoggedIn = !!user
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    // SiteHeader.tsx와 동일한 키('loggedIn')를 사용해야 합니다.
+    if (localStorage.getItem('loggedIn') === 'true') {
+      setIsLoggedIn(true)
+    }
+  }, [])
 
   // 보호된 페이지 이동 처리
   const handleProtectedNavigation = (path: string) => {
@@ -48,8 +53,7 @@ export default function HomePage() {
           📚 당신만의 안전한 독서 공간
         </h1>
         <p className="text-gray-600 text-lg mb-6">
-          리뷰, 토론, 추천까지 —  
-          독서가 머무를 수 있는 조용한 자리.
+          리뷰, 토론, 추천까지 — 독서가 머무를 수 있는 조용한 자리.
         </p>
 
         <button
@@ -68,23 +72,17 @@ export default function HomePage() {
           {topBooks.map((book) => (
             <div
               key={book.id}
-              onClick={() =>
-                handleProtectedNavigation(`/books/${book.id}`)
-              }
+              onClick={() => handleProtectedNavigation(`/books/${book.id}`)}
               className="cursor-pointer p-5 rounded-2xl shadow hover:shadow-lg transition bg-white"
             >
               <h3 className="font-semibold text-lg">{book.title}</h3>
-              <p className="text-gray-500 text-sm mb-3">
-                {book.author}
-              </p>
+              <p className="text-gray-500 text-sm mb-3">{book.author}</p>
 
               <div className="flex items-center gap-2 text-sm mt-auto">
                 <span className="text-yellow-500 font-bold">
                   ★ {book.avgRating}
                 </span>
-                <span className="text-gray-500">
-                  ({book.reviewCount} 리뷰)
-                </span>
+                <span className="text-gray-500">({book.reviewCount} 리뷰)</span>
               </div>
             </div>
           ))}
@@ -103,15 +101,11 @@ export default function HomePage() {
               {items.map((book) => (
                 <div
                   key={book.id}
-                  onClick={() =>
-                    handleProtectedNavigation(`/books/${book.id}`)
-                  }
+                  onClick={() => handleProtectedNavigation(`/books/${book.id}`)}
                   className="cursor-pointer p-4 bg-white rounded-xl shadow hover:shadow-lg transition"
                 >
                   <h4 className="font-medium">{book.title}</h4>
-                  <p className="text-gray-500 text-sm">
-                    {book.author}
-                  </p>
+                  <p className="text-gray-500 text-sm">{book.author}</p>
                 </div>
               ))}
             </div>
@@ -127,15 +121,11 @@ export default function HomePage() {
           {newestBooks.map((book) => (
             <div
               key={book.id}
-              onClick={() =>
-                handleProtectedNavigation(`/books/${book.id}`)
-              }
+              onClick={() => handleProtectedNavigation(`/books/${book.id}`)}
               className="cursor-pointer p-4 bg-white rounded-xl shadow hover:shadow-md transition"
             >
               <h4 className="font-medium">{book.title}</h4>
-              <p className="text-gray-500 text-sm">
-                {book.author}
-              </p>
+              <p className="text-gray-500 text-sm">{book.author}</p>
             </div>
           ))}
         </div>
@@ -150,8 +140,7 @@ export default function HomePage() {
             </h3>
 
             <p className="text-sm text-gray-600 leading-relaxed">
-              이 공간은  
-              로그인한 사용자에게만 열려 있어요.
+              이 공간은 로그인한 사용자에게만 열려 있어요.
             </p>
 
             <div className="flex gap-3 justify-center pt-2">
