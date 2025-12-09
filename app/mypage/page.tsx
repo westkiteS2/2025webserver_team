@@ -1,3 +1,5 @@
+// app/mypage/page.tsx
+
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -51,7 +53,9 @@ export default function MyPage() {
         <div className="w-full max-w-md border rounded-xl p-6 space-y-4 text-center">
           <h1 className="text-xl font-semibold">마이페이지</h1>
 
-          <p className="text-gray-600">로그인이 필요합니다.</p>
+          <p className="text-gray-600">
+            로그인이 필요합니다.
+          </p>
 
           <Link
             href="/login"
