@@ -1,4 +1,5 @@
 // app/community/page.tsx
+
 import Link from 'next/link'
 import { communityPosts, comments } from '@/lib/data/community'
 

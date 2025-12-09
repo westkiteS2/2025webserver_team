@@ -1,4 +1,5 @@
 // components/layout/SiteHeader.tsx
+
 'use client'
 
 import Link from 'next/link'
@@ -8,6 +9,7 @@ const navItems = [
   { label: '홈', href: '/' },
   { label: '도서', href: '/books' },
   { label: '커뮤니티', href: '/community' },
+  { label: '마이페이지', href: '/mypage' }, // ✅ 추가된 부분
 ]
 
 export default function SiteHeader() {

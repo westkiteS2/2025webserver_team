@@ -1,19 +1,21 @@
-"use client";
+// components/PasswordStrength.tsx
 
-import { analyzePassword } from "@/lib/password";
-import { useMemo } from "react";
+'use client'
+
+import { analyzePassword } from '@/lib/password'
+import { useMemo } from 'react'
 
 interface Props {
-  password: string;
+  password: string
 }
 
 export default function PasswordStrength({ password }: Props) {
   const result = useMemo(() => {
-    if (!password) return null;
-    return analyzePassword(password);
-  }, [password]);
+    if (!password) return null
+    return analyzePassword(password)
+  }, [password])
 
-  if (!result) return null;
+  if (!result) return null
 
   return (
     <div className="mt-3 text-sm space-y-1">
@@ -25,8 +27,13 @@ export default function PasswordStrength({ password }: Props) {
           className="h-2 rounded transition-all"
           style={{
             width: `${(result.score + 1) * 20}%`,
-            backgroundColor:
-              ["#dc2626", "#ea580c", "#eab308", "#22c55e", "#16a34a"][result.score],
+            backgroundColor: [
+              '#dc2626',
+              '#ea580c',
+              '#eab308',
+              '#22c55e',
+              '#16a34a',
+            ][result.score],
           }}
         />
       </div>
@@ -34,5 +41,5 @@ export default function PasswordStrength({ password }: Props) {
         예상 해킹 시간: {result.crackTime}
       </p>
     </div>
-  );
+  )
 }

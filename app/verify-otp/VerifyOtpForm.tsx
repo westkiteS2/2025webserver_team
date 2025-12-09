@@ -1,3 +1,5 @@
+// app/verify-otp/VerifyOtpForm.tsx
+
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -6,7 +8,7 @@ import { useRouter } from 'next/navigation'
 export default function VerifyOtpForm() {
   const router = useRouter()
   const [email, setEmail] = useState('')
-  
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
     setEmail(searchParams.get('email') || '')
@@ -50,14 +52,11 @@ export default function VerifyOtpForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white w-full max-w-sm p-6 rounded-2xl shadow-xl space-y-5">
-        <h1 className="text-xl font-semibold text-center">
-          이메일 인증
-        </h1>
+        <h1 className="text-xl font-semibold text-center">이메일 인증</h1>
 
         <p className="text-sm text-gray-600 text-center">
           {email}
-          <br />
-          이 주소로 보낸 숫자 6개를 입력해주세요.
+          <br />이 주소로 보낸 숫자 6개를 입력해주세요.
         </p>
 
         <input
@@ -70,9 +69,7 @@ export default function VerifyOtpForm() {
           className="w-full border rounded-lg px-3 py-2 text-center text-lg tracking-widest"
         />
 
-        {error && (
-          <p className="text-sm text-red-500 text-center">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-500 text-center">{error}</p>}
 
         {!isLoggedIn ? (
           <button

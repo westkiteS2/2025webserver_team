@@ -1,4 +1,6 @@
-import Link from "next/link";
+// app/signup/complete/page.tsx
+
+import Link from 'next/link'
 
 export default function SignupCompletePage() {
   return (
@@ -29,5 +31,5 @@ export default function SignupCompletePage() {
         </div>
       </div>
     </main>
-  );
+  )
 }

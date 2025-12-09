@@ -1,11 +1,13 @@
-"use client";
+// components/PasswordGenerator.tsx
 
-import { generatePassword } from "@/lib/password";
+'use client'
+
+import { generatePassword } from '@/lib/password'
 
 export default function PasswordGenerator({
   onGenerate,
 }: {
-  onGenerate: (pw: string) => void;
+  onGenerate: (pw: string) => void
 }) {
   return (
     <button
@@ -15,5 +17,5 @@ export default function PasswordGenerator({
     >
       안전한 비밀번호 추천받기
     </button>
-  );
+  )
 }

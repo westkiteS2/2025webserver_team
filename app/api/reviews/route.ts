@@ -1,4 +1,5 @@
 // app/api/reviews/route.ts
+
 import { NextResponse } from 'next/server'
 
 let reviewDB: any[] = [] // 서버 메모리에 저장 (DB 없을 경우)

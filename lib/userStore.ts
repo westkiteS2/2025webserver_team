@@ -1,9 +1,10 @@
 // /lib/userStore.ts
+
 export interface User {
-  email: string;
-  password: string;
-  otp: string | null;
-  verified: boolean;
+  email: string
+  password: string
+  otp: string | null
+  verified: boolean
 }
 
-export const users: User[] = [];
+export const users: User[] = []

@@ -1,3 +1,5 @@
+// lib/otpStore.ts
+
 export type OtpRecord = {
   email: string
   otp: string

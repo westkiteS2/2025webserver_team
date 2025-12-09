@@ -1,4 +1,5 @@
 // app/community/[id]/page.tsx
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import {

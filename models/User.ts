@@ -1,4 +1,6 @@
-import { Schema, model, models } from "mongoose";
+// models/user.ts
+
+import { Schema, model, models } from 'mongoose'
 
 const UserSchema = new Schema({
   email: {
@@ -18,6 +20,6 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-});
+})
 
-export default models.User || model("User", UserSchema);
+export default models.User || model('User', UserSchema)
