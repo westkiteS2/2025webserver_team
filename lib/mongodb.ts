@@ -19,7 +19,7 @@ const globalForMongoose = global as typeof globalThis & {
   _mongooseCache?: MongooseCache
 }
 
-// ✅ 이제 cached는 절대 undefined 아님 (타입에서도 보장)
+// ✅ 이제 cached는 절대 undefined11 아님 (타입에서도 보장)
 const cached: MongooseCache =
   globalForMongoose._mongooseCache ??
   (globalForMongoose._mongooseCache = { conn: null, promise: null })
