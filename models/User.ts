@@ -1,4 +1,4 @@
-import mongoose, { Schema, models, model } from "mongoose";
+import mongoose, { Schema, models, model } from 'mongoose'
 
 const UserSchema = new Schema(
   {
@@ -8,6 +8,6 @@ const UserSchema = new Schema(
     supabaseId: { type: String },
   },
   { timestamps: true }
-);
+)
 
-export const User = models.User || model("User", UserSchema);
+export const User = models.User || model('User', UserSchema)
