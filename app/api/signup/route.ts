@@ -1,17 +1,40 @@
-// /app/api/signup/route.ts
-import { NextResponse } from "next/server";
-import { users } from "@/lib/userStore";
+// westkites2/.../app/api/signup/route.ts
+
+import { NextResponse } from 'next/server'
+import { User } from '@/models/User'
+import { connectDB } from '@/lib/mongodb'
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
-  if (!email || !password) return new NextResponse("입력 부족", { status: 400 });
+  const { email, password } = await req.json()
 
-  // users 배열에 가입 정보 저장, OTP는 send-otp에서 발급
-  users.push({ email, password, otp: null, verified: false });
+  if (!email || !password) {
+    return new NextResponse('입력 부족', { status: 400 })
+  }
 
-  console.log(`✅ Signup 완료: ${email}`);
-  console.log(users);
+  await connectDB()
 
+  try {
+    const exists = await User.findOne({ email })
+    if (exists) {
+      return new NextResponse('이미 가입된 이메일입니다.', { status: 409 })
+    }
 
-  return NextResponse.json({ success: true, message: "회원가입 완료" });
+    // MongoDB에 사용자 생성 (verified: false, otp: null 상태로 영구 저장)
+    await User.create({
+      email,
+      password,
+      name: 'User', // name 필드는 required이므로 임시 값 할당
+    })
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: '회원가입 완료. OTP 발급을 시작합니다.',
+      },
+      { status: 201 }
+    )
+  } catch (error) {
+    console.error('Signup DB Error:', error)
+    return new NextResponse('서버 오류가 발생했습니다.', { status: 500 })
+  }
 }
